@@ -1,7 +1,7 @@
 /**
  * Importing npm packages
  */
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 /**
  * Importing user defined packages

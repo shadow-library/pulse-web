@@ -25,11 +25,8 @@ jobs:
       - name: Build the code
         run: bun run build
 
-      - name: Install Playwright Browsers
-        run: bunx playwright install --with-deps
-
       - name: Test the code
-        run: bun run test
+        run: bun test:setup && bun run test
 
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4

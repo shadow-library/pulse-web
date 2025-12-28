@@ -3,12 +3,13 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prepare": "husky",
     "dev": "vite --port 3000",
     "build": "vite build && tsc",
     "preview": "vite preview --port 3000",
     "lint": "bun run scripts/lint.ts",
     "test": "bunx playwright test",
-    "prepare": "husky"
+    "test:setup": "bunx playwright install --with-deps chromium"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.6",

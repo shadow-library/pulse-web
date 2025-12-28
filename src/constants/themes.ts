@@ -1,8 +1,8 @@
 /**
  * Importing npm packages
  */
-import {  theme } from 'antd';
-import type {ThemeConfig} from 'antd';
+import { theme } from 'antd';
+import { type ThemeConfig } from 'antd';
 
 /**
  * Importing user defined packages

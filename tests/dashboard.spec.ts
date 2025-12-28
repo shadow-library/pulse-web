@@ -16,9 +16,9 @@ import { expect, test } from '@playwright/test';
  */
 
 test.describe('Dashboard page', () => {
-  test.beforeEach(({ page }) => page.goto('http://localhost:3000/'));
+  test.beforeEach(({ page }) => page.goto('/'));
 
   test('should load successfully', async ({ page }) => {
-    await expect(page).toHaveURL('http://localhost:3000/');
+    await expect(page).toHaveTitle(/Shadow Pulse/);
   });
 });

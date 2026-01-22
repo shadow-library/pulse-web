@@ -63,20 +63,23 @@ export default function Logo(props: LogoProps) {
     const availableWidthForLetters = width - totalSpacing;
     const scale = availableWidthForLetters / ORIGINAL_TOTAL_WIDTH;
 
-    const letterSizes = LETTERS.reduce((acc, letter) => ({ ...acc, [letter]: { width: LETTER_WIDTHS[letter] * scale, height: ORIGINAL_HEIGHT * scale } }), {} as LetterSizes);
     const height = ORIGINAL_HEIGHT * scale;
+    const letterSizes = LETTERS.reduce(
+      (acc, letter) => Object.assign(acc, { [letter]: { width: LETTER_WIDTHS[letter] * scale, height: ORIGINAL_HEIGHT * scale } }),
+      {} as LetterSizes,
+    );
 
     return { letterSpacing, letterSizes, height };
   }, [width]);
 
   return (
-    <div className="flex items-center" style={{ gap: `${letterSpacing}px`, height: `${height}px` }}>
+    <div className="flex items-center" style={{ gap: `${letterSpacing}px`, height: `${height}px` }} role="img" aria-label="Shadow Applications logo">
       {/* S */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={letterSizes.S.width}
         height={letterSizes.S.height}
-        viewBox="0 0 291 410"
+        viewBox="0 0 290 410"
         className={clsx(strokeClassName, primaryColor.stroke)}
       >
         <path d="M 25 345 L 70 385 210 385 255 340 255 265 235 245 45 165 25 145 25 70 70 25 210 25 255 70" strokeLinecap="round" />

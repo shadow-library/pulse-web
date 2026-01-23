@@ -24,7 +24,9 @@ export const queryClient = new QueryClient();
 export default function AppProvider(props: AppProviderProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>{props.children}</ThemeProvider>;
+      <ThemeProvider>{props.children}</ThemeProvider>
     </QueryClientProvider>
   );
 }
+
+export * from './ThemeProvider';

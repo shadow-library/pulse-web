@@ -36,7 +36,7 @@ declare module '@tanstack/react-router' {
  */
 const router = createRouter({
   routeTree,
-  context: { queryClient: queryClient },
+  context: { queryClient },
   defaultPreload: 'intent',
   scrollRestoration: true,
   defaultStructuralSharing: true,

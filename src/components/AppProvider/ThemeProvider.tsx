@@ -43,8 +43,12 @@ export default function ThemeProvider(props: ThemeProviderProps) {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
 
+  const setThemeState = (newTheme: Theme) => {
+    localStorage.setItem(THEME_STORAGE_KEY, newTheme);
+    setTheme(newTheme);
+  };
+
   useEffect(() => document.documentElement.setAttribute('data-theme', theme), [theme]);
-  const setThemeState = (newTheme: Theme) => (localStorage.setItem(THEME_STORAGE_KEY, newTheme), setTheme(newTheme));
   const toggleTheme = () => setThemeState(theme === 'dark' ? 'light' : 'dark');
 
   return (

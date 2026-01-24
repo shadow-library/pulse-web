@@ -7,11 +7,8 @@ import viteReact from '@vitejs/plugin-react';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { defineConfig, PluginOption } from 'vite';
 
-const optionalPlugins: PluginOption[] = [];
-if (process.env.VITE_ENABLE_BUNDLE_ANALYSER === 'true') optionalPlugins.push(visualizer({ open: true, gzipSize: true, brotliSize: true }));
-
 export default defineConfig({
-  plugins: [devtools(), tanstackRouter({ target: 'react', autoCodeSplitting: true }), viteReact(), tailwindcss(), ...optionalPlugins],
+  plugins: [devtools(), tanstackRouter({ target: 'react', autoCodeSplitting: true }), viteReact(), tailwindcss(), visualizer({ gzipSize: true, brotliSize: true })],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

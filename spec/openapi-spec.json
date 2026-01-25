@@ -1,0 +1,2198 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "shadow-app", "version": "1.0.0" },
+  "components": {
+    "schemas": {
+      "class-schema:ErrorFieldDto-0": {
+        "type": "object",
+        "additionalProperties": false,
+        "$id": "class-schema:ErrorFieldDto-0",
+        "properties": { "field": { "type": "string" }, "msg": { "type": "string" } },
+        "required": ["field", "msg"]
+      },
+      "class-schema:SenderProfileResponse-4": {
+        "type": "object",
+        "additionalProperties": false,
+        "$id": "class-schema:SenderProfileResponse-4",
+        "properties": {
+          "key": { "type": "string" },
+          "displayName": { "type": "string", "x-fastify": { "transform": { "output": "strip:null" } } },
+          "id": { "type": "string" },
+          "isActive": { "type": "boolean" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        },
+        "required": ["key", "id", "isActive", "createdAt", "updatedAt"]
+      },
+      "class-schema:SenderEndpointResponse-12": {
+        "type": "object",
+        "additionalProperties": false,
+        "$id": "class-schema:SenderEndpointResponse-12",
+        "properties": {
+          "channel": { "type": "string", "enum": ["EMAIL", "SMS", "PUSH"] },
+          "provider": { "type": "string", "enum": ["DEV", "SENDGRID", "TWILIO", "FIREBASE", "AWS_SES"] },
+          "identifier": { "type": "string" },
+          "id": { "type": "string" },
+          "senderProfileId": { "type": "string" },
+          "weight": { "type": "number" },
+          "isActive": { "type": "boolean" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        },
+        "required": ["channel", "provider", "identifier", "id", "senderProfileId", "weight", "isActive", "createdAt", "updatedAt"]
+      },
+      "class-schema:SenderRoutingRuleResponse-21": {
+        "type": "object",
+        "additionalProperties": false,
+        "$id": "class-schema:SenderRoutingRuleResponse-21",
+        "properties": {
+          "senderProfileId": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+          "messageType": { "type": "string", "x-fastify": { "transform": { "input": "strip:null", "output": "strip:null" } }, "enum": ["OTP", "TRANSACTIONAL", "PROMOTIONAL"] },
+          "region": { "type": "string", "x-fastify": { "transform": { "input": "strip:null", "output": "strip:null" } } },
+          "service": { "type": "string", "x-fastify": { "transform": { "input": "strip:null", "output": "strip:null" } } },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        },
+        "required": ["senderProfileId", "createdAt", "updatedAt"]
+      },
+      "class-schema:NotificationStats-32": {
+        "type": "object",
+        "additionalProperties": false,
+        "$id": "class-schema:NotificationStats-32",
+        "properties": {
+          "date": { "type": "string", "x-fastify": { "transform": { "output": "date:dmy" } } },
+          "overall": { "$ref": "#/components/schemas/class-schema:NotificationDeliveryStats-29" },
+          "channels": { "$ref": "#/components/schemas/class-schema:NotificationChannelStats-31" }
+        },
+        "required": ["date", "overall", "channels"]
+      },
+      "class-schema:NotificationDeliveryStats-29": {
+        "type": "object",
+        "additionalProperties": false,
+        "$id": "class-schema:NotificationDeliveryStats-29",
+        "properties": { "total": { "type": "number" }, "succeeded": { "type": "number" }, "failed": { "type": "number" }, "pending": { "type": "number" } },
+        "required": ["total", "succeeded", "failed", "pending"]
+      },
+      "class-schema:NotificationChannelStats-31": {
+        "type": "object",
+        "additionalProperties": false,
+        "$id": "class-schema:NotificationChannelStats-31",
+        "properties": {
+          "email": { "$ref": "#/components/schemas/class-schema:NotificationDeliveryStats-29" },
+          "sms": { "$ref": "#/components/schemas/class-schema:NotificationDeliveryStats-29" },
+          "push": { "$ref": "#/components/schemas/class-schema:NotificationDeliveryStats-29" }
+        },
+        "required": ["email", "sms", "push"]
+      },
+      "class-schema:NotificationStatsTrend-33": {
+        "type": "object",
+        "additionalProperties": false,
+        "$id": "class-schema:NotificationStatsTrend-33",
+        "properties": {
+          "fromDate": { "type": "string", "x-fastify": { "transform": { "output": "date:dmy" } } },
+          "toDate": { "type": "string", "x-fastify": { "transform": { "output": "date:dmy" } } },
+          "stats": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:NotificationStatsWithDate-30" } }
+        },
+        "required": ["fromDate", "toDate", "stats"]
+      },
+      "class-schema:NotificationStatsWithDate-30": {
+        "type": "object",
+        "additionalProperties": false,
+        "$id": "class-schema:NotificationStatsWithDate-30",
+        "properties": {
+          "total": { "type": "number" },
+          "succeeded": { "type": "number" },
+          "failed": { "type": "number" },
+          "pending": { "type": "number" },
+          "date": { "type": "string", "x-fastify": { "transform": { "output": "date:dmy" } } }
+        },
+        "required": ["total", "succeeded", "failed", "pending", "date"]
+      },
+      "class-schema:TemplateGroupResponse-48": {
+        "type": "object",
+        "additionalProperties": false,
+        "$id": "class-schema:TemplateGroupResponse-48",
+        "properties": {
+          "templateKey": { "type": "string" },
+          "messageType": { "type": "string", "enum": ["OTP", "TRANSACTIONAL", "PROMOTIONAL"] },
+          "description": { "type": "string", "x-fastify": { "transform": { "output": "strip:null" } } },
+          "priority": { "type": "string", "enum": ["LOW", "MEDIUM", "HIGH"] },
+          "isActive": { "type": "boolean" },
+          "id": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        },
+        "required": ["templateKey", "messageType", "id", "createdAt", "updatedAt"]
+      },
+      "class-schema:TemplateVariantResponse-41": {
+        "type": "object",
+        "additionalProperties": false,
+        "$id": "class-schema:TemplateVariantResponse-41",
+        "properties": {
+          "channel": { "type": "string", "enum": ["EMAIL", "SMS", "PUSH"] },
+          "locale": { "type": "string" },
+          "subject": { "type": "string", "x-fastify": { "transform": { "input": "strip:null", "output": "strip:null" } } },
+          "body": { "type": "string" },
+          "isActive": { "type": "boolean" },
+          "id": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        },
+        "required": ["channel", "locale", "body", "isActive", "id", "createdAt", "updatedAt"]
+      },
+      "class-schema:NotificationRecipients-35": {
+        "minProperties": 1,
+        "type": "object",
+        "additionalProperties": false,
+        "$id": "class-schema:NotificationRecipients-35",
+        "properties": { "email": { "type": "string" }, "phone": { "type": "string" }, "push": { "type": "string" } }
+      },
+      "class-schema:NotificationChannelResponse-37": {
+        "type": "object",
+        "additionalProperties": false,
+        "$id": "class-schema:NotificationChannelResponse-37",
+        "properties": {
+          "channel": { "type": "string", "enum": ["EMAIL", "SMS", "PUSH"] },
+          "status": { "type": "string", "enum": ["QUEUED", "FAILED"] },
+          "locale": { "type": "string" },
+          "jobId": { "type": "string" },
+          "error": {
+            "$ref": "#/components/schemas/class-schema:ErrorResponseDto-1",
+            "x-fastify": { "transform": { "input": "server-error:toObject", "output": "server-error:toObject" } }
+          }
+        },
+        "required": ["channel", "status"]
+      },
+      "class-schema:ErrorResponseDto-1": {
+        "type": "object",
+        "additionalProperties": false,
+        "$id": "class-schema:ErrorResponseDto-1",
+        "properties": {
+          "code": { "type": "string" },
+          "type": { "type": "string" },
+          "message": { "type": "string" },
+          "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+        },
+        "required": ["code", "type", "message"]
+      }
+    }
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "summary": "Get Health",
+        "tags": ["Health"],
+        "responses": {
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sender-profiles": {
+      "post": {
+        "summary": "Create Sender Profile",
+        "tags": ["Sender Profile"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "key": { "type": "string" },
+                  "displayName": { "type": "string", "x-fastify": { "transform": { "output": "strip:null" } } },
+                  "isActive": { "type": "boolean" }
+                },
+                "required": ["key"]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "key": { "type": "string" },
+                    "displayName": { "type": "string", "x-fastify": { "transform": { "output": "strip:null" } } },
+                    "id": { "type": "string" },
+                    "isActive": { "type": "boolean" },
+                    "createdAt": { "type": "string", "format": "date-time" },
+                    "updatedAt": { "type": "string", "format": "date-time" }
+                  },
+                  "required": ["key", "id", "isActive", "createdAt", "updatedAt"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List Sender Profiles",
+        "tags": ["Sender Profile"],
+        "parameters": [
+          { "schema": { "type": "number", "default": 20, "minimum": 1, "maximum": 100 }, "in": "query", "name": "limit", "required": true },
+          { "schema": { "type": "number", "default": 0, "minimum": 0 }, "in": "query", "name": "offset", "required": true },
+          { "schema": { "type": "string", "default": "asc", "enum": ["asc", "desc"] }, "in": "query", "name": "sortOrder", "required": true },
+          { "schema": { "type": "string", "default": "createdAt", "enum": ["createdAt", "updatedAt"] }, "in": "query", "name": "sortBy", "required": true },
+          { "schema": { "type": "string" }, "in": "query", "name": "key", "required": false },
+          { "schema": { "type": "boolean" }, "in": "query", "name": "isActive", "required": false }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "total": { "type": "number" },
+                    "limit": { "type": "number" },
+                    "offset": { "type": "number" },
+                    "items": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:SenderProfileResponse-4" } }
+                  },
+                  "required": ["total", "limit", "offset", "items"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sender-profiles/{profileId}": {
+      "get": {
+        "summary": "Get Sender Profile",
+        "tags": ["Sender Profile"],
+        "parameters": [
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "profileId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "key": { "type": "string" },
+                    "displayName": { "type": "string", "x-fastify": { "transform": { "output": "strip:null" } } },
+                    "id": { "type": "string" },
+                    "isActive": { "type": "boolean" },
+                    "createdAt": { "type": "string", "format": "date-time" },
+                    "updatedAt": { "type": "string", "format": "date-time" }
+                  },
+                  "required": ["key", "id", "isActive", "createdAt", "updatedAt"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Sender Profile",
+        "tags": ["Sender Profile"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "minProperties": 1,
+                "properties": { "displayName": { "type": "string", "x-fastify": { "transform": { "output": "strip:null" } } }, "isActive": { "type": "boolean" } }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "profileId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "key": { "type": "string" },
+                    "displayName": { "type": "string", "x-fastify": { "transform": { "output": "strip:null" } } },
+                    "id": { "type": "string" },
+                    "isActive": { "type": "boolean" },
+                    "createdAt": { "type": "string", "format": "date-time" },
+                    "updatedAt": { "type": "string", "format": "date-time" }
+                  },
+                  "required": ["key", "id", "isActive", "createdAt", "updatedAt"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Sender Profile",
+        "tags": ["Sender Profile"],
+        "parameters": [
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "profileId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sender-profiles/{profileId}/endpoints": {
+      "post": {
+        "summary": "Create Sender Endpoint",
+        "tags": ["Sender Endpoints"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "channel": { "type": "string", "enum": ["EMAIL", "SMS", "PUSH"] },
+                  "provider": { "type": "string", "enum": ["DEV", "SENDGRID", "TWILIO", "FIREBASE", "AWS_SES"] },
+                  "identifier": { "type": "string" },
+                  "weight": { "type": "number" },
+                  "isActive": { "type": "boolean" }
+                },
+                "required": ["channel", "provider", "identifier"]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "profileId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "channel": { "type": "string", "enum": ["EMAIL", "SMS", "PUSH"] },
+                    "provider": { "type": "string", "enum": ["DEV", "SENDGRID", "TWILIO", "FIREBASE", "AWS_SES"] },
+                    "identifier": { "type": "string" },
+                    "id": { "type": "string" },
+                    "senderProfileId": { "type": "string" },
+                    "weight": { "type": "number" },
+                    "isActive": { "type": "boolean" },
+                    "createdAt": { "type": "string", "format": "date-time" },
+                    "updatedAt": { "type": "string", "format": "date-time" }
+                  },
+                  "required": ["channel", "provider", "identifier", "id", "senderProfileId", "weight", "isActive", "createdAt", "updatedAt"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List Sender Endpoints",
+        "tags": ["Sender Endpoints"],
+        "parameters": [
+          { "schema": { "type": "number", "default": 20, "minimum": 1, "maximum": 100 }, "in": "query", "name": "limit", "required": true },
+          { "schema": { "type": "number", "default": 0, "minimum": 0 }, "in": "query", "name": "offset", "required": true },
+          { "schema": { "type": "string", "default": "asc", "enum": ["asc", "desc"] }, "in": "query", "name": "sortOrder", "required": true },
+          { "schema": { "type": "string", "default": "createdAt", "enum": ["createdAt", "updatedAt"] }, "in": "query", "name": "sortBy", "required": true },
+          { "schema": { "type": "string", "enum": ["EMAIL", "SMS", "PUSH"] }, "in": "query", "name": "channel", "required": false },
+          { "schema": { "type": "string", "enum": ["DEV", "SENDGRID", "TWILIO", "FIREBASE", "AWS_SES"] }, "in": "query", "name": "provider", "required": false },
+          { "schema": { "type": "boolean" }, "in": "query", "name": "isActive", "required": false },
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "profileId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "total": { "type": "number" },
+                    "limit": { "type": "number" },
+                    "offset": { "type": "number" },
+                    "items": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:SenderEndpointResponse-12" } }
+                  },
+                  "required": ["total", "limit", "offset", "items"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sender-profiles/{profileId}/endpoints/{endpointId}": {
+      "get": {
+        "summary": "Get Sender Endpoint",
+        "tags": ["Sender Endpoints"],
+        "parameters": [
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "profileId",
+            "required": true
+          },
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "endpointId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "channel": { "type": "string", "enum": ["EMAIL", "SMS", "PUSH"] },
+                    "provider": { "type": "string", "enum": ["DEV", "SENDGRID", "TWILIO", "FIREBASE", "AWS_SES"] },
+                    "identifier": { "type": "string" },
+                    "id": { "type": "string" },
+                    "senderProfileId": { "type": "string" },
+                    "weight": { "type": "number" },
+                    "isActive": { "type": "boolean" },
+                    "createdAt": { "type": "string", "format": "date-time" },
+                    "updatedAt": { "type": "string", "format": "date-time" }
+                  },
+                  "required": ["channel", "provider", "identifier", "id", "senderProfileId", "weight", "isActive", "createdAt", "updatedAt"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Sender Endpoint",
+        "tags": ["Sender Endpoints"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "minProperties": 1,
+                "properties": { "identifier": { "type": "string" }, "weight": { "type": "number" }, "isActive": { "type": "boolean" } }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "profileId",
+            "required": true
+          },
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "endpointId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "channel": { "type": "string", "enum": ["EMAIL", "SMS", "PUSH"] },
+                    "provider": { "type": "string", "enum": ["DEV", "SENDGRID", "TWILIO", "FIREBASE", "AWS_SES"] },
+                    "identifier": { "type": "string" },
+                    "id": { "type": "string" },
+                    "senderProfileId": { "type": "string" },
+                    "weight": { "type": "number" },
+                    "isActive": { "type": "boolean" },
+                    "createdAt": { "type": "string", "format": "date-time" },
+                    "updatedAt": { "type": "string", "format": "date-time" }
+                  },
+                  "required": ["channel", "provider", "identifier", "id", "senderProfileId", "weight", "isActive", "createdAt", "updatedAt"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Sender Endpoint",
+        "tags": ["Sender Endpoints"],
+        "parameters": [
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "profileId",
+            "required": true
+          },
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "endpointId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sender-routing-rules": {
+      "post": {
+        "summary": "Create Sender Routing Rule",
+        "tags": ["Sender Routing Rule"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "senderProfileId": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+                  "messageType": { "type": "string", "enum": ["OTP", "TRANSACTIONAL", "PROMOTIONAL"] },
+                  "region": { "type": "string" },
+                  "service": { "type": "string" }
+                },
+                "required": ["senderProfileId"]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "senderProfileId": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+                    "messageType": {
+                      "type": "string",
+                      "x-fastify": { "transform": { "input": "strip:null", "output": "strip:null" } },
+                      "enum": ["OTP", "TRANSACTIONAL", "PROMOTIONAL"]
+                    },
+                    "region": { "type": "string", "x-fastify": { "transform": { "input": "strip:null", "output": "strip:null" } } },
+                    "service": { "type": "string", "x-fastify": { "transform": { "input": "strip:null", "output": "strip:null" } } },
+                    "createdAt": { "type": "string", "format": "date-time" },
+                    "updatedAt": { "type": "string", "format": "date-time" }
+                  },
+                  "required": ["senderProfileId", "createdAt", "updatedAt"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List Sender Routing Rules",
+        "tags": ["Sender Routing Rule"],
+        "parameters": [
+          { "schema": { "type": "number", "default": 20, "minimum": 1, "maximum": 100 }, "in": "query", "name": "limit", "required": true },
+          { "schema": { "type": "number", "default": 0, "minimum": 0 }, "in": "query", "name": "offset", "required": true },
+          { "schema": { "type": "string", "default": "asc", "enum": ["asc", "desc"] }, "in": "query", "name": "sortOrder", "required": true },
+          { "schema": { "type": "string", "default": "createdAt", "enum": ["createdAt", "updatedAt"] }, "in": "query", "name": "sortBy", "required": true },
+          { "schema": { "type": "string", "enum": ["OTP", "TRANSACTIONAL", "PROMOTIONAL"] }, "in": "query", "name": "messageType", "required": false },
+          { "schema": { "type": "string" }, "in": "query", "name": "region", "required": false },
+          { "schema": { "type": "string" }, "in": "query", "name": "serviceName", "required": false }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "total": { "type": "number" },
+                    "limit": { "type": "number" },
+                    "offset": { "type": "number" },
+                    "items": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:SenderRoutingRuleResponse-21" } }
+                  },
+                  "required": ["total", "limit", "offset", "items"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sender-routing-rules/{routingRuleId}": {
+      "get": {
+        "summary": "Get Sender Routing Rule",
+        "tags": ["Sender Routing Rule"],
+        "parameters": [
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "routingRuleId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "senderProfileId": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+                    "messageType": {
+                      "type": "string",
+                      "x-fastify": { "transform": { "input": "strip:null", "output": "strip:null" } },
+                      "enum": ["OTP", "TRANSACTIONAL", "PROMOTIONAL"]
+                    },
+                    "region": { "type": "string", "x-fastify": { "transform": { "input": "strip:null", "output": "strip:null" } } },
+                    "service": { "type": "string", "x-fastify": { "transform": { "input": "strip:null", "output": "strip:null" } } },
+                    "createdAt": { "type": "string", "format": "date-time" },
+                    "updatedAt": { "type": "string", "format": "date-time" },
+                    "profile": { "$ref": "#/components/schemas/class-schema:SenderProfileResponse-4" }
+                  },
+                  "required": ["senderProfileId", "createdAt", "updatedAt", "profile"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Sender Routing Rule",
+        "tags": ["Sender Routing Rule"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "senderProfileId": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" }
+                },
+                "required": ["senderProfileId"]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "routingRuleId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "senderProfileId": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+                    "messageType": {
+                      "type": "string",
+                      "x-fastify": { "transform": { "input": "strip:null", "output": "strip:null" } },
+                      "enum": ["OTP", "TRANSACTIONAL", "PROMOTIONAL"]
+                    },
+                    "region": { "type": "string", "x-fastify": { "transform": { "input": "strip:null", "output": "strip:null" } } },
+                    "service": { "type": "string", "x-fastify": { "transform": { "input": "strip:null", "output": "strip:null" } } },
+                    "createdAt": { "type": "string", "format": "date-time" },
+                    "updatedAt": { "type": "string", "format": "date-time" }
+                  },
+                  "required": ["senderProfileId", "createdAt", "updatedAt"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Sender Routing Rule",
+        "tags": ["Sender Routing Rule"],
+        "parameters": [
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "routingRuleId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/dashboard/stats": {
+      "get": {
+        "summary": "Get Stats",
+        "tags": ["Dashboard"],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "today": { "$ref": "#/components/schemas/class-schema:NotificationStats-32" },
+                    "trend": { "$ref": "#/components/schemas/class-schema:NotificationStatsTrend-33" }
+                  },
+                  "required": ["today", "trend"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/template-groups": {
+      "post": {
+        "summary": "Create Template Group",
+        "tags": ["Template Group"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "templateKey": { "type": "string" },
+                  "messageType": { "type": "string", "enum": ["OTP", "TRANSACTIONAL", "PROMOTIONAL"] },
+                  "description": { "type": "string", "x-fastify": { "transform": { "output": "strip:null" } } },
+                  "priority": { "type": "string", "enum": ["LOW", "MEDIUM", "HIGH"] },
+                  "isActive": { "type": "boolean" }
+                },
+                "required": ["templateKey", "messageType"]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "templateKey": { "type": "string" },
+                    "messageType": { "type": "string", "enum": ["OTP", "TRANSACTIONAL", "PROMOTIONAL"] },
+                    "description": { "type": "string", "x-fastify": { "transform": { "output": "strip:null" } } },
+                    "priority": { "type": "string", "enum": ["LOW", "MEDIUM", "HIGH"] },
+                    "isActive": { "type": "boolean" },
+                    "id": { "type": "string" },
+                    "createdAt": { "type": "string", "format": "date-time" },
+                    "updatedAt": { "type": "string", "format": "date-time" }
+                  },
+                  "required": ["templateKey", "messageType", "id", "createdAt", "updatedAt"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List Template Groups",
+        "tags": ["Template Group"],
+        "parameters": [
+          { "schema": { "type": "number", "default": 20, "minimum": 1, "maximum": 100 }, "in": "query", "name": "limit", "required": true },
+          { "schema": { "type": "number", "default": 0, "minimum": 0 }, "in": "query", "name": "offset", "required": true },
+          { "schema": { "type": "string", "default": "asc", "enum": ["asc", "desc"] }, "in": "query", "name": "sortOrder", "required": true },
+          { "schema": { "type": "string", "default": "createdAt", "enum": ["createdAt", "updatedAt"] }, "in": "query", "name": "sortBy", "required": true },
+          { "schema": { "type": "string" }, "in": "query", "name": "key", "required": false }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "total": { "type": "number" },
+                    "limit": { "type": "number" },
+                    "offset": { "type": "number" },
+                    "items": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:TemplateGroupResponse-48" } }
+                  },
+                  "required": ["total", "limit", "offset", "items"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/template-groups/{groupId}": {
+      "get": {
+        "summary": "Get Template Group",
+        "tags": ["Template Group"],
+        "parameters": [
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "groupId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "templateKey": { "type": "string" },
+                    "messageType": { "type": "string", "enum": ["OTP", "TRANSACTIONAL", "PROMOTIONAL"] },
+                    "description": { "type": "string", "x-fastify": { "transform": { "output": "strip:null" } } },
+                    "priority": { "type": "string", "enum": ["LOW", "MEDIUM", "HIGH"] },
+                    "isActive": { "type": "boolean" },
+                    "id": { "type": "string" },
+                    "createdAt": { "type": "string", "format": "date-time" },
+                    "updatedAt": { "type": "string", "format": "date-time" }
+                  },
+                  "required": ["templateKey", "messageType", "id", "createdAt", "updatedAt"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Template Group",
+        "tags": ["Template Group"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "minProperties": 1,
+                "properties": {
+                  "messageType": { "type": "string", "enum": ["OTP", "TRANSACTIONAL", "PROMOTIONAL"] },
+                  "description": { "type": "string", "x-fastify": { "transform": { "output": "strip:null" } } },
+                  "priority": { "type": "string", "enum": ["LOW", "MEDIUM", "HIGH"] },
+                  "isActive": { "type": "boolean" }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "groupId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "templateKey": { "type": "string" },
+                    "messageType": { "type": "string", "enum": ["OTP", "TRANSACTIONAL", "PROMOTIONAL"] },
+                    "description": { "type": "string", "x-fastify": { "transform": { "output": "strip:null" } } },
+                    "priority": { "type": "string", "enum": ["LOW", "MEDIUM", "HIGH"] },
+                    "isActive": { "type": "boolean" },
+                    "id": { "type": "string" },
+                    "createdAt": { "type": "string", "format": "date-time" },
+                    "updatedAt": { "type": "string", "format": "date-time" }
+                  },
+                  "required": ["templateKey", "messageType", "id", "createdAt", "updatedAt"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/template-groups/{groupId}/variants": {
+      "get": {
+        "summary": "List Template Variants",
+        "tags": ["Template Variant"],
+        "parameters": [
+          { "schema": { "type": "number", "default": 20, "minimum": 1, "maximum": 100 }, "in": "query", "name": "limit", "required": true },
+          { "schema": { "type": "number", "default": 0, "minimum": 0 }, "in": "query", "name": "offset", "required": true },
+          { "schema": { "type": "string", "default": "asc", "enum": ["asc", "desc"] }, "in": "query", "name": "sortOrder", "required": true },
+          { "schema": { "type": "string", "default": "createdAt", "enum": ["createdAt", "updatedAt"] }, "in": "query", "name": "sortBy", "required": true },
+          { "schema": { "type": "string", "enum": ["EMAIL", "SMS", "PUSH"] }, "in": "query", "name": "channel", "required": false },
+          { "schema": { "type": "string" }, "in": "query", "name": "locale", "required": false },
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "groupId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "total": { "type": "number" },
+                    "limit": { "type": "number" },
+                    "offset": { "type": "number" },
+                    "items": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:TemplateVariantResponse-41" } }
+                  },
+                  "required": ["total", "limit", "offset", "items"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Template Variant",
+        "tags": ["Template Variant"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "channel": { "type": "string", "enum": ["EMAIL", "SMS", "PUSH"] },
+                  "locale": { "type": "string" },
+                  "subject": { "type": "string", "x-fastify": { "transform": { "input": "strip:null", "output": "strip:null" } } },
+                  "body": { "type": "string" },
+                  "isActive": { "type": "boolean" }
+                },
+                "required": ["channel", "locale", "body", "isActive"]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "groupId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "channel": { "type": "string", "enum": ["EMAIL", "SMS", "PUSH"] },
+                    "locale": { "type": "string" },
+                    "subject": { "type": "string", "x-fastify": { "transform": { "input": "strip:null", "output": "strip:null" } } },
+                    "body": { "type": "string" },
+                    "isActive": { "type": "boolean" },
+                    "id": { "type": "string" },
+                    "createdAt": { "type": "string", "format": "date-time" },
+                    "updatedAt": { "type": "string", "format": "date-time" }
+                  },
+                  "required": ["channel", "locale", "body", "isActive", "id", "createdAt", "updatedAt"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/template-groups/{groupId}/variants/{variantId}": {
+      "get": {
+        "summary": "Get Template Variant",
+        "tags": ["Template Variant"],
+        "parameters": [
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "groupId",
+            "required": true
+          },
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "variantId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "channel": { "type": "string", "enum": ["EMAIL", "SMS", "PUSH"] },
+                    "locale": { "type": "string" },
+                    "subject": { "type": "string", "x-fastify": { "transform": { "input": "strip:null", "output": "strip:null" } } },
+                    "body": { "type": "string" },
+                    "isActive": { "type": "boolean" },
+                    "id": { "type": "string" },
+                    "createdAt": { "type": "string", "format": "date-time" },
+                    "updatedAt": { "type": "string", "format": "date-time" }
+                  },
+                  "required": ["channel", "locale", "body", "isActive", "id", "createdAt", "updatedAt"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Template Variant",
+        "tags": ["Template Variant"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "minProperties": 1,
+                "properties": {
+                  "subject": { "type": "string", "x-fastify": { "transform": { "input": "strip:null", "output": "strip:null" } } },
+                  "body": { "type": "string" },
+                  "isActive": { "type": "boolean" }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "groupId",
+            "required": true
+          },
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "variantId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "channel": { "type": "string", "enum": ["EMAIL", "SMS", "PUSH"] },
+                    "locale": { "type": "string" },
+                    "subject": { "type": "string", "x-fastify": { "transform": { "input": "strip:null", "output": "strip:null" } } },
+                    "body": { "type": "string" },
+                    "isActive": { "type": "boolean" },
+                    "id": { "type": "string" },
+                    "createdAt": { "type": "string", "format": "date-time" },
+                    "updatedAt": { "type": "string", "format": "date-time" }
+                  },
+                  "required": ["channel", "locale", "body", "isActive", "id", "createdAt", "updatedAt"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Template Variant",
+        "tags": ["Template Variant"],
+        "parameters": [
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "groupId",
+            "required": true
+          },
+          {
+            "schema": { "type": "string", "x-fastify": { "transform": { "input": "bigint:parse", "output": "bigint:parse" } }, "pattern": "^[0-9]+$" },
+            "in": "path",
+            "name": "variantId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/notifications": {
+      "post": {
+        "summary": "Create Notification",
+        "tags": ["Notification"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "templateKey": { "type": "string" },
+                  "recipients": { "$ref": "#/components/schemas/class-schema:NotificationRecipients-35" },
+                  "payload": { "type": "object" },
+                  "locale": { "type": "string" },
+                  "service": { "type": "string" }
+                },
+                "required": ["templateKey", "recipients"]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "status": { "type": "string", "enum": ["ACCEPTED", "PARTIAL_ACCEPTED", "FAILED"] },
+                    "channelResults": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:NotificationChannelResponse-37" } }
+                  },
+                  "required": ["status", "channelResults"]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "code": { "type": "string" },
+                    "type": { "type": "string" },
+                    "message": { "type": "string" },
+                    "fields": { "type": "array", "items": { "$ref": "#/components/schemas/class-schema:ErrorFieldDto-0" } }
+                  },
+                  "required": ["code", "type", "message"]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

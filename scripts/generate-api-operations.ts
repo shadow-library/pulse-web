@@ -45,6 +45,6 @@ await generate({
 /** Formatting the generated file */
 const cwd = join(import.meta.dirname, '..');
 const options = { cwd, stdio: 'inherit' } satisfies SpawnSyncOptions;
-spawnSync('bunx', ['prettier', '--write', 'src/api/operations.ts'], options);
+spawnSync('bunx', ['prettier', '--write', 'src/api/operations.gen.ts'], options);
 
 console.log('API operations generated successfully'); // eslint-disable-line no-console

@@ -281,106 +281,136 @@ export interface ListNotificationMessagesResponse {
 }
 
 export type ListSenderProfilesParams = {
-/**
- * @minimum 1
- * @maximum 100
- */
-limit?: number;
-/**
- * @minimum 0
- */
-offset: number;
-sortOrder?: SortOrder;
-sortBy?: SortByTime;
-key?: string;
-isActive?: boolean;
+  /**
+   * @minimum 1
+   * @maximum 100
+   */
+  limit?: number;
+  /**
+   * @minimum 0
+   */
+  offset: number;
+  sortOrder?: SortOrder;
+  sortBy?: SortByTime;
+  key?: string;
+  isActive?: boolean;
 };
 
 export type ListSenderEndpointsParams = {
-/**
- * @minimum 1
- * @maximum 100
- */
-limit?: number;
-/**
- * @minimum 0
- */
-offset: number;
-sortOrder?: SortOrder;
-sortBy?: SortByTime;
-channel?: NotificationChannel;
-provider?: NotificationServiceProvider;
-isActive?: boolean;
+  /**
+   * @minimum 1
+   * @maximum 100
+   */
+  limit?: number;
+  /**
+   * @minimum 0
+   */
+  offset: number;
+  sortOrder?: SortOrder;
+  sortBy?: SortByTime;
+  channel?: NotificationChannel;
+  provider?: NotificationServiceProvider;
+  isActive?: boolean;
 };
 
 export type ListSenderRoutingRulesParams = {
-/**
- * @minimum 1
- * @maximum 100
- */
-limit?: number;
-/**
- * @minimum 0
- */
-offset: number;
-sortOrder?: SortOrder;
-sortBy?: SortByTime;
-messageType?: MessageType;
-region?: string;
-serviceName?: string;
+  /**
+   * @minimum 1
+   * @maximum 100
+   */
+  limit?: number;
+  /**
+   * @minimum 0
+   */
+  offset: number;
+  sortOrder?: SortOrder;
+  sortBy?: SortByTime;
+  messageType?: MessageType;
+  region?: string;
+  serviceName?: string;
 };
 
 export type ListTemplateGroupsParams = {
-/**
- * @minimum 1
- * @maximum 100
- */
-limit?: number;
-/**
- * @minimum 0
- */
-offset: number;
-sortOrder?: SortOrder;
-sortBy?: SortByTime;
-key?: string;
+  /**
+   * @minimum 1
+   * @maximum 100
+   */
+  limit?: number;
+  /**
+   * @minimum 0
+   */
+  offset: number;
+  sortOrder?: SortOrder;
+  sortBy?: SortByTime;
+  key?: string;
 };
 
 export type ListTemplateVariantsParams = {
-/**
- * @minimum 1
- * @maximum 100
- */
-limit?: number;
-/**
- * @minimum 0
- */
-offset: number;
-sortOrder?: SortOrder;
-sortBy?: SortByTime;
-channel?: NotificationChannel;
-locale?: string;
+  /**
+   * @minimum 1
+   * @maximum 100
+   */
+  limit?: number;
+  /**
+   * @minimum 0
+   */
+  offset: number;
+  sortOrder?: SortOrder;
+  sortBy?: SortByTime;
+  channel?: NotificationChannel;
+  locale?: string;
 };
 
 export type ListMessagesParams = {
-/**
- * @minimum 1
- * @maximum 100
- */
-limit?: number;
-/**
- * @minimum 0
- */
-offset: number;
-sortOrder?: SortOrder;
-sortBy?: SortByCreatedAt;
-channel?: NotificationChannel;
-recipient?: string;
+  /**
+   * @minimum 1
+   * @maximum 100
+   */
+  limit?: number;
+  /**
+   * @minimum 0
+   */
+  offset: number;
+  sortOrder?: SortOrder;
+  sortBy?: SortByCreatedAt;
+  channel?: NotificationChannel;
+  recipient?: string;
 };
 
 export type HTTPStatusCode1xx = 100 | 101 | 102 | 103;
 export type HTTPStatusCode2xx = 200 | 201 | 202 | 203 | 204 | 205 | 206 | 207;
 export type HTTPStatusCode3xx = 300 | 301 | 302 | 303 | 304 | 305 | 307 | 308;
-export type HTTPStatusCode4xx = 400 | 401 | 402 | 403 | 404 | 405 | 406 | 407 | 408 | 409 | 410 | 411 | 412 | 413 | 414 | 415 | 416 | 417 | 418 | 419 | 420 | 421 | 422 | 423 | 424 | 426 | 428 | 429 | 431 | 451;
+export type HTTPStatusCode4xx =
+  | 400
+  | 401
+  | 402
+  | 403
+  | 404
+  | 405
+  | 406
+  | 407
+  | 408
+  | 409
+  | 410
+  | 411
+  | 412
+  | 413
+  | 414
+  | 415
+  | 416
+  | 417
+  | 418
+  | 419
+  | 420
+  | 421
+  | 422
+  | 423
+  | 424
+  | 426
+  | 428
+  | 429
+  | 431
+  | 451;
 export type HTTPStatusCode5xx = 500 | 501 | 502 | 503 | 504 | 505 | 507 | 511;
 export type HTTPStatusCodes = HTTPStatusCode1xx | HTTPStatusCode2xx | HTTPStatusCode3xx | HTTPStatusCode4xx | HTTPStatusCode5xx;
 
@@ -388,21 +418,21 @@ export type HTTPStatusCodes = HTTPStatusCode1xx | HTTPStatusCode2xx | HTTPStatus
  * @summary Create Sender Profile
  */
 export type createSenderProfileResponse201 = {
-  data: SenderProfileResponse
-  status: 201
-}
+  data: SenderProfileResponse;
+  status: 201;
+};
 
 export type createSenderProfileResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type createSenderProfileResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type createSenderProfileResponseSuccess = (createSenderProfileResponse201) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type createSenderProfileResponseSuccess = createSenderProfileResponse201 & {
   headers: Headers;
 };
 export type createSenderProfileResponseError = (createSenderProfileResponse4xx | createSenderProfileResponse5xx) & {
@@ -410,608 +440,496 @@ export type createSenderProfileResponseError = (createSenderProfileResponse4xx |
 };
 
 export const getCreateSenderProfileUrl = () => {
-
-
-  
-
-  return `/api/v1/sender-profiles`
-}
+  return `/api/v1/sender-profiles`;
+};
 
 export const createSenderProfile = async (createSenderProfileBody: CreateSenderProfileBody, options?: RequestInit): Promise<createSenderProfileResponseSuccess> => {
-  
-  const res = await fetch(getCreateSenderProfileUrl(),
-  {      
+  const res = await fetch(getCreateSenderProfileUrl(), {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      createSenderProfileBody,)
-  }
-)
+    body: JSON.stringify(createSenderProfileBody),
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: createSenderProfileResponseError['data'], status?: number} = new globalThis.Error();
-    const data : createSenderProfileResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: createSenderProfileResponseError['data']; status?: number } = new globalThis.Error();
+    const data: createSenderProfileResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: createSenderProfileResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as createSenderProfileResponseSuccess
-}
-
-
+  const data: createSenderProfileResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as createSenderProfileResponseSuccess;
+};
 
 /**
  * @summary List Sender Profiles
  */
 export type listSenderProfilesResponse200 = {
-  data: ListSenderProfileResponse
-  status: 200
-}
+  data: ListSenderProfileResponse;
+  status: 200;
+};
 
 export type listSenderProfilesResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type listSenderProfilesResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type listSenderProfilesResponseSuccess = (listSenderProfilesResponse200) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type listSenderProfilesResponseSuccess = listSenderProfilesResponse200 & {
   headers: Headers;
 };
 export type listSenderProfilesResponseError = (listSenderProfilesResponse4xx | listSenderProfilesResponse5xx) & {
   headers: Headers;
 };
 
-export const getListSenderProfilesUrl = (params: ListSenderProfilesParams,) => {
+export const getListSenderProfilesUrl = (params: ListSenderProfilesParams) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
-    
     if (value !== undefined) {
-      normalizedParams.append(key, value === null ? 'null' : value.toString())
+      normalizedParams.append(key, value === null ? 'null' : value.toString());
     }
   });
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `/api/v1/sender-profiles?${stringifiedParams}` : `/api/v1/sender-profiles`
-}
+  return stringifiedParams.length > 0 ? `/api/v1/sender-profiles?${stringifiedParams}` : `/api/v1/sender-profiles`;
+};
 
 export const listSenderProfiles = async (params: ListSenderProfilesParams, options?: RequestInit): Promise<listSenderProfilesResponseSuccess> => {
-  
-  const res = await fetch(getListSenderProfilesUrl(params),
-  {      
+  const res = await fetch(getListSenderProfilesUrl(params), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-)
+    method: 'GET',
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: listSenderProfilesResponseError['data'], status?: number} = new globalThis.Error();
-    const data : listSenderProfilesResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: listSenderProfilesResponseError['data']; status?: number } = new globalThis.Error();
+    const data: listSenderProfilesResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: listSenderProfilesResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as listSenderProfilesResponseSuccess
-}
-
-
+  const data: listSenderProfilesResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as listSenderProfilesResponseSuccess;
+};
 
 /**
  * @summary Get Sender Profile
  */
 export type getSenderProfileResponse200 = {
-  data: SenderProfileResponse
-  status: 200
-}
+  data: SenderProfileResponse;
+  status: 200;
+};
 
 export type getSenderProfileResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type getSenderProfileResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type getSenderProfileResponseSuccess = (getSenderProfileResponse200) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type getSenderProfileResponseSuccess = getSenderProfileResponse200 & {
   headers: Headers;
 };
 export type getSenderProfileResponseError = (getSenderProfileResponse4xx | getSenderProfileResponse5xx) & {
   headers: Headers;
 };
 
-export const getGetSenderProfileUrl = (profileId: string,) => {
-
-
-  
-
-  return `/api/v1/sender-profiles/${profileId}`
-}
+export const getGetSenderProfileUrl = (profileId: string) => {
+  return `/api/v1/sender-profiles/${profileId}`;
+};
 
 export const getSenderProfile = async (profileId: string, options?: RequestInit): Promise<getSenderProfileResponseSuccess> => {
-  
-  const res = await fetch(getGetSenderProfileUrl(profileId),
-  {      
+  const res = await fetch(getGetSenderProfileUrl(profileId), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-)
+    method: 'GET',
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: getSenderProfileResponseError['data'], status?: number} = new globalThis.Error();
-    const data : getSenderProfileResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: getSenderProfileResponseError['data']; status?: number } = new globalThis.Error();
+    const data: getSenderProfileResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: getSenderProfileResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as getSenderProfileResponseSuccess
-}
-
-
+  const data: getSenderProfileResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as getSenderProfileResponseSuccess;
+};
 
 /**
  * @summary Update Sender Profile
  */
 export type updateSenderProfileResponse200 = {
-  data: SenderProfileResponse
-  status: 200
-}
+  data: SenderProfileResponse;
+  status: 200;
+};
 
 export type updateSenderProfileResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type updateSenderProfileResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type updateSenderProfileResponseSuccess = (updateSenderProfileResponse200) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type updateSenderProfileResponseSuccess = updateSenderProfileResponse200 & {
   headers: Headers;
 };
 export type updateSenderProfileResponseError = (updateSenderProfileResponse4xx | updateSenderProfileResponse5xx) & {
   headers: Headers;
 };
 
-export const getUpdateSenderProfileUrl = (profileId: string,) => {
+export const getUpdateSenderProfileUrl = (profileId: string) => {
+  return `/api/v1/sender-profiles/${profileId}`;
+};
 
-
-  
-
-  return `/api/v1/sender-profiles/${profileId}`
-}
-
-export const updateSenderProfile = async (profileId: string,
-    updateSenderProfileBody: UpdateSenderProfileBody, options?: RequestInit): Promise<updateSenderProfileResponseSuccess> => {
-  
-  const res = await fetch(getUpdateSenderProfileUrl(profileId),
-  {      
+export const updateSenderProfile = async (
+  profileId: string,
+  updateSenderProfileBody: UpdateSenderProfileBody,
+  options?: RequestInit,
+): Promise<updateSenderProfileResponseSuccess> => {
+  const res = await fetch(getUpdateSenderProfileUrl(profileId), {
     ...options,
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      updateSenderProfileBody,)
-  }
-)
+    body: JSON.stringify(updateSenderProfileBody),
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: updateSenderProfileResponseError['data'], status?: number} = new globalThis.Error();
-    const data : updateSenderProfileResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: updateSenderProfileResponseError['data']; status?: number } = new globalThis.Error();
+    const data: updateSenderProfileResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: updateSenderProfileResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as updateSenderProfileResponseSuccess
-}
-
-
+  const data: updateSenderProfileResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as updateSenderProfileResponseSuccess;
+};
 
 /**
  * @summary Delete Sender Profile
  */
 export type deleteSenderProfileResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type deleteSenderProfileResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-;
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
 export type deleteSenderProfileResponseError = (deleteSenderProfileResponse4xx | deleteSenderProfileResponse5xx) & {
   headers: Headers;
 };
 
-export type deleteSenderProfileResponse = (deleteSenderProfileResponseError)
+export type deleteSenderProfileResponse = deleteSenderProfileResponseError;
 
-export const getDeleteSenderProfileUrl = (profileId: string,) => {
-
-
-  
-
-  return `/api/v1/sender-profiles/${profileId}`
-}
+export const getDeleteSenderProfileUrl = (profileId: string) => {
+  return `/api/v1/sender-profiles/${profileId}`;
+};
 
 export const deleteSenderProfile = async (profileId: string, options?: RequestInit): Promise<deleteSenderProfileResponse> => {
-  
-  const res = await fetch(getDeleteSenderProfileUrl(profileId),
-  {      
+  const res = await fetch(getDeleteSenderProfileUrl(profileId), {
     ...options,
-    method: 'DELETE'
-    
-    
-  }
-)
+    method: 'DELETE',
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: deleteSenderProfileResponseError['data'], status?: number} = new globalThis.Error();
-    const data : deleteSenderProfileResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: deleteSenderProfileResponseError['data']; status?: number } = new globalThis.Error();
+    const data: deleteSenderProfileResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: deleteSenderProfileResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as deleteSenderProfileResponse
-}
-
-
+  const data: deleteSenderProfileResponse['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as deleteSenderProfileResponse;
+};
 
 /**
  * @summary Create Sender Endpoint
  */
 export type createSenderEndpointResponse201 = {
-  data: SenderEndpointResponse
-  status: 201
-}
+  data: SenderEndpointResponse;
+  status: 201;
+};
 
 export type createSenderEndpointResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type createSenderEndpointResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type createSenderEndpointResponseSuccess = (createSenderEndpointResponse201) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type createSenderEndpointResponseSuccess = createSenderEndpointResponse201 & {
   headers: Headers;
 };
 export type createSenderEndpointResponseError = (createSenderEndpointResponse4xx | createSenderEndpointResponse5xx) & {
   headers: Headers;
 };
 
-export const getCreateSenderEndpointUrl = (profileId: string,) => {
+export const getCreateSenderEndpointUrl = (profileId: string) => {
+  return `/api/v1/sender-profiles/${profileId}/endpoints`;
+};
 
-
-  
-
-  return `/api/v1/sender-profiles/${profileId}/endpoints`
-}
-
-export const createSenderEndpoint = async (profileId: string,
-    createSenderEndpointBody: CreateSenderEndpointBody, options?: RequestInit): Promise<createSenderEndpointResponseSuccess> => {
-  
-  const res = await fetch(getCreateSenderEndpointUrl(profileId),
-  {      
+export const createSenderEndpoint = async (
+  profileId: string,
+  createSenderEndpointBody: CreateSenderEndpointBody,
+  options?: RequestInit,
+): Promise<createSenderEndpointResponseSuccess> => {
+  const res = await fetch(getCreateSenderEndpointUrl(profileId), {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      createSenderEndpointBody,)
-  }
-)
+    body: JSON.stringify(createSenderEndpointBody),
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: createSenderEndpointResponseError['data'], status?: number} = new globalThis.Error();
-    const data : createSenderEndpointResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: createSenderEndpointResponseError['data']; status?: number } = new globalThis.Error();
+    const data: createSenderEndpointResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: createSenderEndpointResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as createSenderEndpointResponseSuccess
-}
-
-
+  const data: createSenderEndpointResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as createSenderEndpointResponseSuccess;
+};
 
 /**
  * @summary List Sender Endpoints
  */
 export type listSenderEndpointsResponse200 = {
-  data: ListSenderEndpointResponse
-  status: 200
-}
+  data: ListSenderEndpointResponse;
+  status: 200;
+};
 
 export type listSenderEndpointsResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type listSenderEndpointsResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type listSenderEndpointsResponseSuccess = (listSenderEndpointsResponse200) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type listSenderEndpointsResponseSuccess = listSenderEndpointsResponse200 & {
   headers: Headers;
 };
 export type listSenderEndpointsResponseError = (listSenderEndpointsResponse4xx | listSenderEndpointsResponse5xx) & {
   headers: Headers;
 };
 
-export const getListSenderEndpointsUrl = (profileId: string,
-    params: ListSenderEndpointsParams,) => {
+export const getListSenderEndpointsUrl = (profileId: string, params: ListSenderEndpointsParams) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
-    
     if (value !== undefined) {
-      normalizedParams.append(key, value === null ? 'null' : value.toString())
+      normalizedParams.append(key, value === null ? 'null' : value.toString());
     }
   });
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `/api/v1/sender-profiles/${profileId}/endpoints?${stringifiedParams}` : `/api/v1/sender-profiles/${profileId}/endpoints`
-}
+  return stringifiedParams.length > 0 ? `/api/v1/sender-profiles/${profileId}/endpoints?${stringifiedParams}` : `/api/v1/sender-profiles/${profileId}/endpoints`;
+};
 
-export const listSenderEndpoints = async (profileId: string,
-    params: ListSenderEndpointsParams, options?: RequestInit): Promise<listSenderEndpointsResponseSuccess> => {
-  
-  const res = await fetch(getListSenderEndpointsUrl(profileId,params),
-  {      
+export const listSenderEndpoints = async (profileId: string, params: ListSenderEndpointsParams, options?: RequestInit): Promise<listSenderEndpointsResponseSuccess> => {
+  const res = await fetch(getListSenderEndpointsUrl(profileId, params), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-)
+    method: 'GET',
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: listSenderEndpointsResponseError['data'], status?: number} = new globalThis.Error();
-    const data : listSenderEndpointsResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: listSenderEndpointsResponseError['data']; status?: number } = new globalThis.Error();
+    const data: listSenderEndpointsResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: listSenderEndpointsResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as listSenderEndpointsResponseSuccess
-}
-
-
+  const data: listSenderEndpointsResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as listSenderEndpointsResponseSuccess;
+};
 
 /**
  * @summary Get Sender Endpoint
  */
 export type getSenderEndpointResponse200 = {
-  data: SenderEndpointResponse
-  status: 200
-}
+  data: SenderEndpointResponse;
+  status: 200;
+};
 
 export type getSenderEndpointResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type getSenderEndpointResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type getSenderEndpointResponseSuccess = (getSenderEndpointResponse200) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type getSenderEndpointResponseSuccess = getSenderEndpointResponse200 & {
   headers: Headers;
 };
 export type getSenderEndpointResponseError = (getSenderEndpointResponse4xx | getSenderEndpointResponse5xx) & {
   headers: Headers;
 };
 
-export const getGetSenderEndpointUrl = (profileId: string,
-    endpointId: string,) => {
+export const getGetSenderEndpointUrl = (profileId: string, endpointId: string) => {
+  return `/api/v1/sender-profiles/${profileId}/endpoints/${endpointId}`;
+};
 
-
-  
-
-  return `/api/v1/sender-profiles/${profileId}/endpoints/${endpointId}`
-}
-
-export const getSenderEndpoint = async (profileId: string,
-    endpointId: string, options?: RequestInit): Promise<getSenderEndpointResponseSuccess> => {
-  
-  const res = await fetch(getGetSenderEndpointUrl(profileId,endpointId),
-  {      
+export const getSenderEndpoint = async (profileId: string, endpointId: string, options?: RequestInit): Promise<getSenderEndpointResponseSuccess> => {
+  const res = await fetch(getGetSenderEndpointUrl(profileId, endpointId), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-)
+    method: 'GET',
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: getSenderEndpointResponseError['data'], status?: number} = new globalThis.Error();
-    const data : getSenderEndpointResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: getSenderEndpointResponseError['data']; status?: number } = new globalThis.Error();
+    const data: getSenderEndpointResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: getSenderEndpointResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as getSenderEndpointResponseSuccess
-}
-
-
+  const data: getSenderEndpointResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as getSenderEndpointResponseSuccess;
+};
 
 /**
  * @summary Update Sender Endpoint
  */
 export type updateSenderEndpointResponse200 = {
-  data: SenderEndpointResponse
-  status: 200
-}
+  data: SenderEndpointResponse;
+  status: 200;
+};
 
 export type updateSenderEndpointResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type updateSenderEndpointResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type updateSenderEndpointResponseSuccess = (updateSenderEndpointResponse200) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type updateSenderEndpointResponseSuccess = updateSenderEndpointResponse200 & {
   headers: Headers;
 };
 export type updateSenderEndpointResponseError = (updateSenderEndpointResponse4xx | updateSenderEndpointResponse5xx) & {
   headers: Headers;
 };
 
-export const getUpdateSenderEndpointUrl = (profileId: string,
-    endpointId: string,) => {
+export const getUpdateSenderEndpointUrl = (profileId: string, endpointId: string) => {
+  return `/api/v1/sender-profiles/${profileId}/endpoints/${endpointId}`;
+};
 
-
-  
-
-  return `/api/v1/sender-profiles/${profileId}/endpoints/${endpointId}`
-}
-
-export const updateSenderEndpoint = async (profileId: string,
-    endpointId: string,
-    updateSenderEndpointBody: UpdateSenderEndpointBody, options?: RequestInit): Promise<updateSenderEndpointResponseSuccess> => {
-  
-  const res = await fetch(getUpdateSenderEndpointUrl(profileId,endpointId),
-  {      
+export const updateSenderEndpoint = async (
+  profileId: string,
+  endpointId: string,
+  updateSenderEndpointBody: UpdateSenderEndpointBody,
+  options?: RequestInit,
+): Promise<updateSenderEndpointResponseSuccess> => {
+  const res = await fetch(getUpdateSenderEndpointUrl(profileId, endpointId), {
     ...options,
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      updateSenderEndpointBody,)
-  }
-)
+    body: JSON.stringify(updateSenderEndpointBody),
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: updateSenderEndpointResponseError['data'], status?: number} = new globalThis.Error();
-    const data : updateSenderEndpointResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: updateSenderEndpointResponseError['data']; status?: number } = new globalThis.Error();
+    const data: updateSenderEndpointResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: updateSenderEndpointResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as updateSenderEndpointResponseSuccess
-}
-
-
+  const data: updateSenderEndpointResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as updateSenderEndpointResponseSuccess;
+};
 
 /**
  * @summary Delete Sender Endpoint
  */
 export type deleteSenderEndpointResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type deleteSenderEndpointResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-;
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
 export type deleteSenderEndpointResponseError = (deleteSenderEndpointResponse4xx | deleteSenderEndpointResponse5xx) & {
   headers: Headers;
 };
 
-export type deleteSenderEndpointResponse = (deleteSenderEndpointResponseError)
+export type deleteSenderEndpointResponse = deleteSenderEndpointResponseError;
 
-export const getDeleteSenderEndpointUrl = (profileId: string,
-    endpointId: string,) => {
+export const getDeleteSenderEndpointUrl = (profileId: string, endpointId: string) => {
+  return `/api/v1/sender-profiles/${profileId}/endpoints/${endpointId}`;
+};
 
-
-  
-
-  return `/api/v1/sender-profiles/${profileId}/endpoints/${endpointId}`
-}
-
-export const deleteSenderEndpoint = async (profileId: string,
-    endpointId: string, options?: RequestInit): Promise<deleteSenderEndpointResponse> => {
-  
-  const res = await fetch(getDeleteSenderEndpointUrl(profileId,endpointId),
-  {      
+export const deleteSenderEndpoint = async (profileId: string, endpointId: string, options?: RequestInit): Promise<deleteSenderEndpointResponse> => {
+  const res = await fetch(getDeleteSenderEndpointUrl(profileId, endpointId), {
     ...options,
-    method: 'DELETE'
-    
-    
-  }
-)
+    method: 'DELETE',
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: deleteSenderEndpointResponseError['data'], status?: number} = new globalThis.Error();
-    const data : deleteSenderEndpointResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: deleteSenderEndpointResponseError['data']; status?: number } = new globalThis.Error();
+    const data: deleteSenderEndpointResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: deleteSenderEndpointResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as deleteSenderEndpointResponse
-}
-
-
+  const data: deleteSenderEndpointResponse['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as deleteSenderEndpointResponse;
+};
 
 /**
  * @summary Create Sender Routing Rule
  */
 export type createSenderRoutingRuleResponse201 = {
-  data: SenderRoutingRuleResponse
-  status: 201
-}
+  data: SenderRoutingRuleResponse;
+  status: 201;
+};
 
 export type createSenderRoutingRuleResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type createSenderRoutingRuleResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type createSenderRoutingRuleResponseSuccess = (createSenderRoutingRuleResponse201) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type createSenderRoutingRuleResponseSuccess = createSenderRoutingRuleResponse201 & {
   headers: Headers;
 };
 export type createSenderRoutingRuleResponseError = (createSenderRoutingRuleResponse4xx | createSenderRoutingRuleResponse5xx) & {
@@ -1019,299 +937,245 @@ export type createSenderRoutingRuleResponseError = (createSenderRoutingRuleRespo
 };
 
 export const getCreateSenderRoutingRuleUrl = () => {
-
-
-  
-
-  return `/api/v1/sender-routing-rules`
-}
+  return `/api/v1/sender-routing-rules`;
+};
 
 export const createSenderRoutingRule = async (createRoutingRuleBody: CreateRoutingRuleBody, options?: RequestInit): Promise<createSenderRoutingRuleResponseSuccess> => {
-  
-  const res = await fetch(getCreateSenderRoutingRuleUrl(),
-  {      
+  const res = await fetch(getCreateSenderRoutingRuleUrl(), {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      createRoutingRuleBody,)
-  }
-)
+    body: JSON.stringify(createRoutingRuleBody),
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: createSenderRoutingRuleResponseError['data'], status?: number} = new globalThis.Error();
-    const data : createSenderRoutingRuleResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: createSenderRoutingRuleResponseError['data']; status?: number } = new globalThis.Error();
+    const data: createSenderRoutingRuleResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: createSenderRoutingRuleResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as createSenderRoutingRuleResponseSuccess
-}
-
-
+  const data: createSenderRoutingRuleResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as createSenderRoutingRuleResponseSuccess;
+};
 
 /**
  * @summary List Sender Routing Rules
  */
 export type listSenderRoutingRulesResponse200 = {
-  data: ListSenderRoutingRuleResponse
-  status: 200
-}
+  data: ListSenderRoutingRuleResponse;
+  status: 200;
+};
 
 export type listSenderRoutingRulesResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type listSenderRoutingRulesResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type listSenderRoutingRulesResponseSuccess = (listSenderRoutingRulesResponse200) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type listSenderRoutingRulesResponseSuccess = listSenderRoutingRulesResponse200 & {
   headers: Headers;
 };
 export type listSenderRoutingRulesResponseError = (listSenderRoutingRulesResponse4xx | listSenderRoutingRulesResponse5xx) & {
   headers: Headers;
 };
 
-export const getListSenderRoutingRulesUrl = (params: ListSenderRoutingRulesParams,) => {
+export const getListSenderRoutingRulesUrl = (params: ListSenderRoutingRulesParams) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
-    
     if (value !== undefined) {
-      normalizedParams.append(key, value === null ? 'null' : value.toString())
+      normalizedParams.append(key, value === null ? 'null' : value.toString());
     }
   });
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `/api/v1/sender-routing-rules?${stringifiedParams}` : `/api/v1/sender-routing-rules`
-}
+  return stringifiedParams.length > 0 ? `/api/v1/sender-routing-rules?${stringifiedParams}` : `/api/v1/sender-routing-rules`;
+};
 
 export const listSenderRoutingRules = async (params: ListSenderRoutingRulesParams, options?: RequestInit): Promise<listSenderRoutingRulesResponseSuccess> => {
-  
-  const res = await fetch(getListSenderRoutingRulesUrl(params),
-  {      
+  const res = await fetch(getListSenderRoutingRulesUrl(params), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-)
+    method: 'GET',
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: listSenderRoutingRulesResponseError['data'], status?: number} = new globalThis.Error();
-    const data : listSenderRoutingRulesResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: listSenderRoutingRulesResponseError['data']; status?: number } = new globalThis.Error();
+    const data: listSenderRoutingRulesResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: listSenderRoutingRulesResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as listSenderRoutingRulesResponseSuccess
-}
-
-
+  const data: listSenderRoutingRulesResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as listSenderRoutingRulesResponseSuccess;
+};
 
 /**
  * @summary Get Sender Routing Rule
  */
 export type getSenderRoutingRuleResponse200 = {
-  data: SenderRoutingRuleDetailResponse
-  status: 200
-}
+  data: SenderRoutingRuleDetailResponse;
+  status: 200;
+};
 
 export type getSenderRoutingRuleResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type getSenderRoutingRuleResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type getSenderRoutingRuleResponseSuccess = (getSenderRoutingRuleResponse200) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type getSenderRoutingRuleResponseSuccess = getSenderRoutingRuleResponse200 & {
   headers: Headers;
 };
 export type getSenderRoutingRuleResponseError = (getSenderRoutingRuleResponse4xx | getSenderRoutingRuleResponse5xx) & {
   headers: Headers;
 };
 
-export const getGetSenderRoutingRuleUrl = (routingRuleId: string,) => {
-
-
-  
-
-  return `/api/v1/sender-routing-rules/${routingRuleId}`
-}
+export const getGetSenderRoutingRuleUrl = (routingRuleId: string) => {
+  return `/api/v1/sender-routing-rules/${routingRuleId}`;
+};
 
 export const getSenderRoutingRule = async (routingRuleId: string, options?: RequestInit): Promise<getSenderRoutingRuleResponseSuccess> => {
-  
-  const res = await fetch(getGetSenderRoutingRuleUrl(routingRuleId),
-  {      
+  const res = await fetch(getGetSenderRoutingRuleUrl(routingRuleId), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-)
+    method: 'GET',
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: getSenderRoutingRuleResponseError['data'], status?: number} = new globalThis.Error();
-    const data : getSenderRoutingRuleResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: getSenderRoutingRuleResponseError['data']; status?: number } = new globalThis.Error();
+    const data: getSenderRoutingRuleResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: getSenderRoutingRuleResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as getSenderRoutingRuleResponseSuccess
-}
-
-
+  const data: getSenderRoutingRuleResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as getSenderRoutingRuleResponseSuccess;
+};
 
 /**
  * @summary Update Sender Routing Rule
  */
 export type updateSenderRoutingRuleResponse200 = {
-  data: SenderRoutingRuleResponse
-  status: 200
-}
+  data: SenderRoutingRuleResponse;
+  status: 200;
+};
 
 export type updateSenderRoutingRuleResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type updateSenderRoutingRuleResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type updateSenderRoutingRuleResponseSuccess = (updateSenderRoutingRuleResponse200) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type updateSenderRoutingRuleResponseSuccess = updateSenderRoutingRuleResponse200 & {
   headers: Headers;
 };
 export type updateSenderRoutingRuleResponseError = (updateSenderRoutingRuleResponse4xx | updateSenderRoutingRuleResponse5xx) & {
   headers: Headers;
 };
 
-export const getUpdateSenderRoutingRuleUrl = (routingRuleId: string,) => {
+export const getUpdateSenderRoutingRuleUrl = (routingRuleId: string) => {
+  return `/api/v1/sender-routing-rules/${routingRuleId}`;
+};
 
-
-  
-
-  return `/api/v1/sender-routing-rules/${routingRuleId}`
-}
-
-export const updateSenderRoutingRule = async (routingRuleId: string,
-    updateSenderRoutingRuleBody: UpdateSenderRoutingRuleBody, options?: RequestInit): Promise<updateSenderRoutingRuleResponseSuccess> => {
-  
-  const res = await fetch(getUpdateSenderRoutingRuleUrl(routingRuleId),
-  {      
+export const updateSenderRoutingRule = async (
+  routingRuleId: string,
+  updateSenderRoutingRuleBody: UpdateSenderRoutingRuleBody,
+  options?: RequestInit,
+): Promise<updateSenderRoutingRuleResponseSuccess> => {
+  const res = await fetch(getUpdateSenderRoutingRuleUrl(routingRuleId), {
     ...options,
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      updateSenderRoutingRuleBody,)
-  }
-)
+    body: JSON.stringify(updateSenderRoutingRuleBody),
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: updateSenderRoutingRuleResponseError['data'], status?: number} = new globalThis.Error();
-    const data : updateSenderRoutingRuleResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: updateSenderRoutingRuleResponseError['data']; status?: number } = new globalThis.Error();
+    const data: updateSenderRoutingRuleResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: updateSenderRoutingRuleResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as updateSenderRoutingRuleResponseSuccess
-}
-
-
+  const data: updateSenderRoutingRuleResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as updateSenderRoutingRuleResponseSuccess;
+};
 
 /**
  * @summary Delete Sender Routing Rule
  */
 export type deleteSenderRoutingRuleResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type deleteSenderRoutingRuleResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-;
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
 export type deleteSenderRoutingRuleResponseError = (deleteSenderRoutingRuleResponse4xx | deleteSenderRoutingRuleResponse5xx) & {
   headers: Headers;
 };
 
-export type deleteSenderRoutingRuleResponse = (deleteSenderRoutingRuleResponseError)
+export type deleteSenderRoutingRuleResponse = deleteSenderRoutingRuleResponseError;
 
-export const getDeleteSenderRoutingRuleUrl = (routingRuleId: string,) => {
-
-
-  
-
-  return `/api/v1/sender-routing-rules/${routingRuleId}`
-}
+export const getDeleteSenderRoutingRuleUrl = (routingRuleId: string) => {
+  return `/api/v1/sender-routing-rules/${routingRuleId}`;
+};
 
 export const deleteSenderRoutingRule = async (routingRuleId: string, options?: RequestInit): Promise<deleteSenderRoutingRuleResponse> => {
-  
-  const res = await fetch(getDeleteSenderRoutingRuleUrl(routingRuleId),
-  {      
+  const res = await fetch(getDeleteSenderRoutingRuleUrl(routingRuleId), {
     ...options,
-    method: 'DELETE'
-    
-    
-  }
-)
+    method: 'DELETE',
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: deleteSenderRoutingRuleResponseError['data'], status?: number} = new globalThis.Error();
-    const data : deleteSenderRoutingRuleResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: deleteSenderRoutingRuleResponseError['data']; status?: number } = new globalThis.Error();
+    const data: deleteSenderRoutingRuleResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: deleteSenderRoutingRuleResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as deleteSenderRoutingRuleResponse
-}
-
-
+  const data: deleteSenderRoutingRuleResponse['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as deleteSenderRoutingRuleResponse;
+};
 
 /**
  * @summary Get Stats
  */
 export type getStatsResponse200 = {
-  data: DashboardStats
-  status: 200
-}
+  data: DashboardStats;
+  status: 200;
+};
 
 export type getStatsResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type getStatsResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type getStatsResponseSuccess = (getStatsResponse200) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type getStatsResponseSuccess = getStatsResponse200 & {
   headers: Headers;
 };
 export type getStatsResponseError = (getStatsResponse4xx | getStatsResponse5xx) & {
@@ -1319,58 +1183,46 @@ export type getStatsResponseError = (getStatsResponse4xx | getStatsResponse5xx) 
 };
 
 export const getGetStatsUrl = () => {
+  return `/api/v1/dashboard/stats`;
+};
 
-
-  
-
-  return `/api/v1/dashboard/stats`
-}
-
-export const getStats = async ( options?: RequestInit): Promise<getStatsResponseSuccess> => {
-  
-  const res = await fetch(getGetStatsUrl(),
-  {      
+export const getStats = async (options?: RequestInit): Promise<getStatsResponseSuccess> => {
+  const res = await fetch(getGetStatsUrl(), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-)
+    method: 'GET',
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: getStatsResponseError['data'], status?: number} = new globalThis.Error();
-    const data : getStatsResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: getStatsResponseError['data']; status?: number } = new globalThis.Error();
+    const data: getStatsResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: getStatsResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as getStatsResponseSuccess
-}
-
-
+  const data: getStatsResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as getStatsResponseSuccess;
+};
 
 /**
  * @summary Create Template Group
  */
 export type createTemplateGroupResponse201 = {
-  data: TemplateGroupResponse
-  status: 201
-}
+  data: TemplateGroupResponse;
+  status: 201;
+};
 
 export type createTemplateGroupResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type createTemplateGroupResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type createTemplateGroupResponseSuccess = (createTemplateGroupResponse201) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type createTemplateGroupResponseSuccess = createTemplateGroupResponse201 & {
   headers: Headers;
 };
 export type createTemplateGroupResponseError = (createTemplateGroupResponse4xx | createTemplateGroupResponse5xx) & {
@@ -1378,554 +1230,456 @@ export type createTemplateGroupResponseError = (createTemplateGroupResponse4xx |
 };
 
 export const getCreateTemplateGroupUrl = () => {
-
-
-  
-
-  return `/api/v1/template-groups`
-}
+  return `/api/v1/template-groups`;
+};
 
 export const createTemplateGroup = async (createTemplateGroupBody: CreateTemplateGroupBody, options?: RequestInit): Promise<createTemplateGroupResponseSuccess> => {
-  
-  const res = await fetch(getCreateTemplateGroupUrl(),
-  {      
+  const res = await fetch(getCreateTemplateGroupUrl(), {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      createTemplateGroupBody,)
-  }
-)
+    body: JSON.stringify(createTemplateGroupBody),
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: createTemplateGroupResponseError['data'], status?: number} = new globalThis.Error();
-    const data : createTemplateGroupResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: createTemplateGroupResponseError['data']; status?: number } = new globalThis.Error();
+    const data: createTemplateGroupResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: createTemplateGroupResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as createTemplateGroupResponseSuccess
-}
-
-
+  const data: createTemplateGroupResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as createTemplateGroupResponseSuccess;
+};
 
 /**
  * @summary List Template Groups
  */
 export type listTemplateGroupsResponse200 = {
-  data: ListTemplateGroupResponse
-  status: 200
-}
+  data: ListTemplateGroupResponse;
+  status: 200;
+};
 
 export type listTemplateGroupsResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type listTemplateGroupsResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type listTemplateGroupsResponseSuccess = (listTemplateGroupsResponse200) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type listTemplateGroupsResponseSuccess = listTemplateGroupsResponse200 & {
   headers: Headers;
 };
 export type listTemplateGroupsResponseError = (listTemplateGroupsResponse4xx | listTemplateGroupsResponse5xx) & {
   headers: Headers;
 };
 
-export const getListTemplateGroupsUrl = (params: ListTemplateGroupsParams,) => {
+export const getListTemplateGroupsUrl = (params: ListTemplateGroupsParams) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
-    
     if (value !== undefined) {
-      normalizedParams.append(key, value === null ? 'null' : value.toString())
+      normalizedParams.append(key, value === null ? 'null' : value.toString());
     }
   });
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `/api/v1/template-groups?${stringifiedParams}` : `/api/v1/template-groups`
-}
+  return stringifiedParams.length > 0 ? `/api/v1/template-groups?${stringifiedParams}` : `/api/v1/template-groups`;
+};
 
 export const listTemplateGroups = async (params: ListTemplateGroupsParams, options?: RequestInit): Promise<listTemplateGroupsResponseSuccess> => {
-  
-  const res = await fetch(getListTemplateGroupsUrl(params),
-  {      
+  const res = await fetch(getListTemplateGroupsUrl(params), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-)
+    method: 'GET',
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: listTemplateGroupsResponseError['data'], status?: number} = new globalThis.Error();
-    const data : listTemplateGroupsResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: listTemplateGroupsResponseError['data']; status?: number } = new globalThis.Error();
+    const data: listTemplateGroupsResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: listTemplateGroupsResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as listTemplateGroupsResponseSuccess
-}
-
-
+  const data: listTemplateGroupsResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as listTemplateGroupsResponseSuccess;
+};
 
 /**
  * @summary Get Template Group
  */
 export type getTemplateGroupResponse200 = {
-  data: TemplateGroupResponse
-  status: 200
-}
+  data: TemplateGroupResponse;
+  status: 200;
+};
 
 export type getTemplateGroupResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type getTemplateGroupResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type getTemplateGroupResponseSuccess = (getTemplateGroupResponse200) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type getTemplateGroupResponseSuccess = getTemplateGroupResponse200 & {
   headers: Headers;
 };
 export type getTemplateGroupResponseError = (getTemplateGroupResponse4xx | getTemplateGroupResponse5xx) & {
   headers: Headers;
 };
 
-export const getGetTemplateGroupUrl = (groupId: string,) => {
-
-
-  
-
-  return `/api/v1/template-groups/${groupId}`
-}
+export const getGetTemplateGroupUrl = (groupId: string) => {
+  return `/api/v1/template-groups/${groupId}`;
+};
 
 export const getTemplateGroup = async (groupId: string, options?: RequestInit): Promise<getTemplateGroupResponseSuccess> => {
-  
-  const res = await fetch(getGetTemplateGroupUrl(groupId),
-  {      
+  const res = await fetch(getGetTemplateGroupUrl(groupId), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-)
+    method: 'GET',
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: getTemplateGroupResponseError['data'], status?: number} = new globalThis.Error();
-    const data : getTemplateGroupResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: getTemplateGroupResponseError['data']; status?: number } = new globalThis.Error();
+    const data: getTemplateGroupResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: getTemplateGroupResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as getTemplateGroupResponseSuccess
-}
-
-
+  const data: getTemplateGroupResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as getTemplateGroupResponseSuccess;
+};
 
 /**
  * @summary Update Template Group
  */
 export type updateTemplateGroupResponse200 = {
-  data: TemplateGroupResponse
-  status: 200
-}
+  data: TemplateGroupResponse;
+  status: 200;
+};
 
 export type updateTemplateGroupResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type updateTemplateGroupResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type updateTemplateGroupResponseSuccess = (updateTemplateGroupResponse200) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type updateTemplateGroupResponseSuccess = updateTemplateGroupResponse200 & {
   headers: Headers;
 };
 export type updateTemplateGroupResponseError = (updateTemplateGroupResponse4xx | updateTemplateGroupResponse5xx) & {
   headers: Headers;
 };
 
-export const getUpdateTemplateGroupUrl = (groupId: string,) => {
+export const getUpdateTemplateGroupUrl = (groupId: string) => {
+  return `/api/v1/template-groups/${groupId}`;
+};
 
-
-  
-
-  return `/api/v1/template-groups/${groupId}`
-}
-
-export const updateTemplateGroup = async (groupId: string,
-    updateTemplateGroupBody: UpdateTemplateGroupBody, options?: RequestInit): Promise<updateTemplateGroupResponseSuccess> => {
-  
-  const res = await fetch(getUpdateTemplateGroupUrl(groupId),
-  {      
+export const updateTemplateGroup = async (
+  groupId: string,
+  updateTemplateGroupBody: UpdateTemplateGroupBody,
+  options?: RequestInit,
+): Promise<updateTemplateGroupResponseSuccess> => {
+  const res = await fetch(getUpdateTemplateGroupUrl(groupId), {
     ...options,
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      updateTemplateGroupBody,)
-  }
-)
+    body: JSON.stringify(updateTemplateGroupBody),
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: updateTemplateGroupResponseError['data'], status?: number} = new globalThis.Error();
-    const data : updateTemplateGroupResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: updateTemplateGroupResponseError['data']; status?: number } = new globalThis.Error();
+    const data: updateTemplateGroupResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: updateTemplateGroupResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as updateTemplateGroupResponseSuccess
-}
-
-
+  const data: updateTemplateGroupResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as updateTemplateGroupResponseSuccess;
+};
 
 /**
  * @summary List Template Variants
  */
 export type listTemplateVariantsResponse200 = {
-  data: ListTemplateVariantResponse
-  status: 200
-}
+  data: ListTemplateVariantResponse;
+  status: 200;
+};
 
 export type listTemplateVariantsResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type listTemplateVariantsResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type listTemplateVariantsResponseSuccess = (listTemplateVariantsResponse200) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type listTemplateVariantsResponseSuccess = listTemplateVariantsResponse200 & {
   headers: Headers;
 };
 export type listTemplateVariantsResponseError = (listTemplateVariantsResponse4xx | listTemplateVariantsResponse5xx) & {
   headers: Headers;
 };
 
-export const getListTemplateVariantsUrl = (groupId: string,
-    params: ListTemplateVariantsParams,) => {
+export const getListTemplateVariantsUrl = (groupId: string, params: ListTemplateVariantsParams) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
-    
     if (value !== undefined) {
-      normalizedParams.append(key, value === null ? 'null' : value.toString())
+      normalizedParams.append(key, value === null ? 'null' : value.toString());
     }
   });
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `/api/v1/template-groups/${groupId}/variants?${stringifiedParams}` : `/api/v1/template-groups/${groupId}/variants`
-}
+  return stringifiedParams.length > 0 ? `/api/v1/template-groups/${groupId}/variants?${stringifiedParams}` : `/api/v1/template-groups/${groupId}/variants`;
+};
 
-export const listTemplateVariants = async (groupId: string,
-    params: ListTemplateVariantsParams, options?: RequestInit): Promise<listTemplateVariantsResponseSuccess> => {
-  
-  const res = await fetch(getListTemplateVariantsUrl(groupId,params),
-  {      
+export const listTemplateVariants = async (groupId: string, params: ListTemplateVariantsParams, options?: RequestInit): Promise<listTemplateVariantsResponseSuccess> => {
+  const res = await fetch(getListTemplateVariantsUrl(groupId, params), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-)
+    method: 'GET',
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: listTemplateVariantsResponseError['data'], status?: number} = new globalThis.Error();
-    const data : listTemplateVariantsResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: listTemplateVariantsResponseError['data']; status?: number } = new globalThis.Error();
+    const data: listTemplateVariantsResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: listTemplateVariantsResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as listTemplateVariantsResponseSuccess
-}
-
-
+  const data: listTemplateVariantsResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as listTemplateVariantsResponseSuccess;
+};
 
 /**
  * @summary Create Template Variant
  */
 export type createTemplateVariantResponse201 = {
-  data: TemplateVariantResponse
-  status: 201
-}
+  data: TemplateVariantResponse;
+  status: 201;
+};
 
 export type createTemplateVariantResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type createTemplateVariantResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type createTemplateVariantResponseSuccess = (createTemplateVariantResponse201) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type createTemplateVariantResponseSuccess = createTemplateVariantResponse201 & {
   headers: Headers;
 };
 export type createTemplateVariantResponseError = (createTemplateVariantResponse4xx | createTemplateVariantResponse5xx) & {
   headers: Headers;
 };
 
-export const getCreateTemplateVariantUrl = (groupId: string,) => {
+export const getCreateTemplateVariantUrl = (groupId: string) => {
+  return `/api/v1/template-groups/${groupId}/variants`;
+};
 
-
-  
-
-  return `/api/v1/template-groups/${groupId}/variants`
-}
-
-export const createTemplateVariant = async (groupId: string,
-    createTemplateVariantBody: CreateTemplateVariantBody, options?: RequestInit): Promise<createTemplateVariantResponseSuccess> => {
-  
-  const res = await fetch(getCreateTemplateVariantUrl(groupId),
-  {      
+export const createTemplateVariant = async (
+  groupId: string,
+  createTemplateVariantBody: CreateTemplateVariantBody,
+  options?: RequestInit,
+): Promise<createTemplateVariantResponseSuccess> => {
+  const res = await fetch(getCreateTemplateVariantUrl(groupId), {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      createTemplateVariantBody,)
-  }
-)
+    body: JSON.stringify(createTemplateVariantBody),
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: createTemplateVariantResponseError['data'], status?: number} = new globalThis.Error();
-    const data : createTemplateVariantResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: createTemplateVariantResponseError['data']; status?: number } = new globalThis.Error();
+    const data: createTemplateVariantResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: createTemplateVariantResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as createTemplateVariantResponseSuccess
-}
-
-
+  const data: createTemplateVariantResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as createTemplateVariantResponseSuccess;
+};
 
 /**
  * @summary Get Template Variant
  */
 export type getTemplateVariantResponse200 = {
-  data: TemplateVariantResponse
-  status: 200
-}
+  data: TemplateVariantResponse;
+  status: 200;
+};
 
 export type getTemplateVariantResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type getTemplateVariantResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type getTemplateVariantResponseSuccess = (getTemplateVariantResponse200) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type getTemplateVariantResponseSuccess = getTemplateVariantResponse200 & {
   headers: Headers;
 };
 export type getTemplateVariantResponseError = (getTemplateVariantResponse4xx | getTemplateVariantResponse5xx) & {
   headers: Headers;
 };
 
-export const getGetTemplateVariantUrl = (groupId: string,
-    variantId: string,) => {
+export const getGetTemplateVariantUrl = (groupId: string, variantId: string) => {
+  return `/api/v1/template-groups/${groupId}/variants/${variantId}`;
+};
 
-
-  
-
-  return `/api/v1/template-groups/${groupId}/variants/${variantId}`
-}
-
-export const getTemplateVariant = async (groupId: string,
-    variantId: string, options?: RequestInit): Promise<getTemplateVariantResponseSuccess> => {
-  
-  const res = await fetch(getGetTemplateVariantUrl(groupId,variantId),
-  {      
+export const getTemplateVariant = async (groupId: string, variantId: string, options?: RequestInit): Promise<getTemplateVariantResponseSuccess> => {
+  const res = await fetch(getGetTemplateVariantUrl(groupId, variantId), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-)
+    method: 'GET',
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: getTemplateVariantResponseError['data'], status?: number} = new globalThis.Error();
-    const data : getTemplateVariantResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: getTemplateVariantResponseError['data']; status?: number } = new globalThis.Error();
+    const data: getTemplateVariantResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: getTemplateVariantResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as getTemplateVariantResponseSuccess
-}
-
-
+  const data: getTemplateVariantResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as getTemplateVariantResponseSuccess;
+};
 
 /**
  * @summary Update Template Variant
  */
 export type updateTemplateVariantResponse200 = {
-  data: TemplateVariantResponse
-  status: 200
-}
+  data: TemplateVariantResponse;
+  status: 200;
+};
 
 export type updateTemplateVariantResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type updateTemplateVariantResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type updateTemplateVariantResponseSuccess = (updateTemplateVariantResponse200) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type updateTemplateVariantResponseSuccess = updateTemplateVariantResponse200 & {
   headers: Headers;
 };
 export type updateTemplateVariantResponseError = (updateTemplateVariantResponse4xx | updateTemplateVariantResponse5xx) & {
   headers: Headers;
 };
 
-export const getUpdateTemplateVariantUrl = (groupId: string,
-    variantId: string,) => {
+export const getUpdateTemplateVariantUrl = (groupId: string, variantId: string) => {
+  return `/api/v1/template-groups/${groupId}/variants/${variantId}`;
+};
 
-
-  
-
-  return `/api/v1/template-groups/${groupId}/variants/${variantId}`
-}
-
-export const updateTemplateVariant = async (groupId: string,
-    variantId: string,
-    updateTemplateVariantBody: UpdateTemplateVariantBody, options?: RequestInit): Promise<updateTemplateVariantResponseSuccess> => {
-  
-  const res = await fetch(getUpdateTemplateVariantUrl(groupId,variantId),
-  {      
+export const updateTemplateVariant = async (
+  groupId: string,
+  variantId: string,
+  updateTemplateVariantBody: UpdateTemplateVariantBody,
+  options?: RequestInit,
+): Promise<updateTemplateVariantResponseSuccess> => {
+  const res = await fetch(getUpdateTemplateVariantUrl(groupId, variantId), {
     ...options,
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      updateTemplateVariantBody,)
-  }
-)
+    body: JSON.stringify(updateTemplateVariantBody),
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: updateTemplateVariantResponseError['data'], status?: number} = new globalThis.Error();
-    const data : updateTemplateVariantResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: updateTemplateVariantResponseError['data']; status?: number } = new globalThis.Error();
+    const data: updateTemplateVariantResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: updateTemplateVariantResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as updateTemplateVariantResponseSuccess
-}
-
-
+  const data: updateTemplateVariantResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as updateTemplateVariantResponseSuccess;
+};
 
 /**
  * @summary Delete Template Variant
  */
 export type deleteTemplateVariantResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type deleteTemplateVariantResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-;
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
 export type deleteTemplateVariantResponseError = (deleteTemplateVariantResponse4xx | deleteTemplateVariantResponse5xx) & {
   headers: Headers;
 };
 
-export type deleteTemplateVariantResponse = (deleteTemplateVariantResponseError)
+export type deleteTemplateVariantResponse = deleteTemplateVariantResponseError;
 
-export const getDeleteTemplateVariantUrl = (groupId: string,
-    variantId: string,) => {
+export const getDeleteTemplateVariantUrl = (groupId: string, variantId: string) => {
+  return `/api/v1/template-groups/${groupId}/variants/${variantId}`;
+};
 
-
-  
-
-  return `/api/v1/template-groups/${groupId}/variants/${variantId}`
-}
-
-export const deleteTemplateVariant = async (groupId: string,
-    variantId: string, options?: RequestInit): Promise<deleteTemplateVariantResponse> => {
-  
-  const res = await fetch(getDeleteTemplateVariantUrl(groupId,variantId),
-  {      
+export const deleteTemplateVariant = async (groupId: string, variantId: string, options?: RequestInit): Promise<deleteTemplateVariantResponse> => {
+  const res = await fetch(getDeleteTemplateVariantUrl(groupId, variantId), {
     ...options,
-    method: 'DELETE'
-    
-    
-  }
-)
+    method: 'DELETE',
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: deleteTemplateVariantResponseError['data'], status?: number} = new globalThis.Error();
-    const data : deleteTemplateVariantResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: deleteTemplateVariantResponseError['data']; status?: number } = new globalThis.Error();
+    const data: deleteTemplateVariantResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: deleteTemplateVariantResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as deleteTemplateVariantResponse
-}
-
-
+  const data: deleteTemplateVariantResponse['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as deleteTemplateVariantResponse;
+};
 
 /**
  * @summary Create Notification
  */
 export type createNotificationResponse201 = {
-  data: CreateNotificationResponse
-  status: 201
-}
+  data: CreateNotificationResponse;
+  status: 201;
+};
 
 export type createNotificationResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type createNotificationResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type createNotificationResponseSuccess = (createNotificationResponse201) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type createNotificationResponseSuccess = createNotificationResponse201 & {
   headers: Headers;
 };
 export type createNotificationResponseError = (createNotificationResponse4xx | createNotificationResponse5xx) & {
@@ -1933,100 +1687,82 @@ export type createNotificationResponseError = (createNotificationResponse4xx | c
 };
 
 export const getCreateNotificationUrl = () => {
-
-
-  
-
-  return `/api/v1/notifications`
-}
+  return `/api/v1/notifications`;
+};
 
 export const createNotification = async (createNotificationBody: CreateNotificationBody, options?: RequestInit): Promise<createNotificationResponseSuccess> => {
-  
-  const res = await fetch(getCreateNotificationUrl(),
-  {      
+  const res = await fetch(getCreateNotificationUrl(), {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      createNotificationBody,)
-  }
-)
+    body: JSON.stringify(createNotificationBody),
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: createNotificationResponseError['data'], status?: number} = new globalThis.Error();
-    const data : createNotificationResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: createNotificationResponseError['data']; status?: number } = new globalThis.Error();
+    const data: createNotificationResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: createNotificationResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as createNotificationResponseSuccess
-}
-
-
+  const data: createNotificationResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as createNotificationResponseSuccess;
+};
 
 /**
  * @summary List Messages
  */
 export type listMessagesResponse200 = {
-  data: ListNotificationMessagesResponse
-  status: 200
-}
+  data: ListNotificationMessagesResponse;
+  status: 200;
+};
 
 export type listMessagesResponse4xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode4xx
-}
+  data: ErrorResponseDto;
+  status: HTTPStatusCode4xx;
+};
 
 export type listMessagesResponse5xx = {
-  data: ErrorResponseDto
-  status: HTTPStatusCode5xx
-}
-    
-export type listMessagesResponseSuccess = (listMessagesResponse200) & {
+  data: ErrorResponseDto;
+  status: HTTPStatusCode5xx;
+};
+
+export type listMessagesResponseSuccess = listMessagesResponse200 & {
   headers: Headers;
 };
 export type listMessagesResponseError = (listMessagesResponse4xx | listMessagesResponse5xx) & {
   headers: Headers;
 };
 
-export const getListMessagesUrl = (params: ListMessagesParams,) => {
+export const getListMessagesUrl = (params: ListMessagesParams) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
-    
     if (value !== undefined) {
-      normalizedParams.append(key, value === null ? 'null' : value.toString())
+      normalizedParams.append(key, value === null ? 'null' : value.toString());
     }
   });
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `/api/v1/notifications/messages?${stringifiedParams}` : `/api/v1/notifications/messages`
-}
+  return stringifiedParams.length > 0 ? `/api/v1/notifications/messages?${stringifiedParams}` : `/api/v1/notifications/messages`;
+};
 
 export const listMessages = async (params: ListMessagesParams, options?: RequestInit): Promise<listMessagesResponseSuccess> => {
-  
-  const res = await fetch(getListMessagesUrl(params),
-  {      
+  const res = await fetch(getListMessagesUrl(params), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-)
+    method: 'GET',
+  });
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text();
   if (!res.ok) {
-    
-    const err: globalThis.Error & {info?: listMessagesResponseError['data'], status?: number} = new globalThis.Error();
-    const data : listMessagesResponseError['data'] = body ? JSON.parse(body) : {}
+    const err: globalThis.Error & { info?: listMessagesResponseError['data']; status?: number } = new globalThis.Error();
+    const data: listMessagesResponseError['data'] = body ? JSON.parse(body) : {};
     err.info = data;
     err.status = res.status;
     throw err;
   }
-  const data: listMessagesResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as listMessagesResponseSuccess
-}
+  const data: listMessagesResponseSuccess['data'] = body ? JSON.parse(body) : {};
+  return { data, status: res.status, headers: res.headers } as listMessagesResponseSuccess;
+};

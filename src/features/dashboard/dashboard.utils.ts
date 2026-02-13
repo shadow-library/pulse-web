@@ -22,7 +22,7 @@ export interface SuccessProgress {
 
 export function getSuccessProgress(total: number, succeeded: number): SuccessProgress {
   const rate = total === 0 ? 0 : Math.round((succeeded / total) * 100);
-  const status = rate === 100 ? 'success' : rate > 0 ? 'normal' : 'exception';
+  const status = rate === 100 ? 'success' : rate > 0 || total === 0 ? 'normal' : 'exception';
 
   let strokeColor: string | undefined;
   if (rate >= 60 && rate < 80) strokeColor = 'var(--color-warning)';

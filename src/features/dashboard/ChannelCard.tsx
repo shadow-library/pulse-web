@@ -1,13 +1,13 @@
 /**
  * Importing npm packages
  */
-import type { NotificationDeliveryStats, NotificationChannel } from '@/api';
 import { MailOutlined, MessageOutlined, NotificationOutlined } from '@ant-design/icons';
 import { Card, Progress } from 'antd';
 
 /**
  *  Importing user defined modules
  */
+import type { NotificationDeliveryStats, NotificationChannel } from '@/api';
 import { getSuccessProgress } from './dashboard.utils';
 
 /**
@@ -70,7 +70,7 @@ export default function ChannelCard(props: ChannelCardProps) {
           <span>Pending</span>
           <span className="text-[var(--color-warning)]">{props.stats.pending}</span>
         </div>
-        <Progress percent={progress.rate} status={progress.status} strokeColor={progress.strokeColor} />
+        <Progress percent={progress.rate} status={progress.status} strokeColor={progress.strokeColor} aria-label={`${channelConfig.label} Success Rate`} />
       </div>
     </Card>
   );

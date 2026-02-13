@@ -1,24 +1,20 @@
 /**
  * Importing npm packages
  */
+import { CheckCircleOutlined, CloseCircleOutlined, ClockCircleOutlined, NotificationOutlined } from '@ant-design/icons';
 import { createFileRoute } from '@tanstack/react-router';
 import { Card, Col, Row, Typography, Progress, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { CheckCircleOutlined, CloseCircleOutlined, ClockCircleOutlined, NotificationOutlined } from '@ant-design/icons';
 
 /**
  *  Importing user defined modules
  */
-import { getStats, type NotificationDeliveryStats } from '@/api';
+import { getStats, type NotificationStatsWithDate } from '@/api';
 import { ChannelCard, DashboardUtils, StatCard } from '@/features/dashboard';
 
 /**
  * Declaring types
  */
-
-interface TrendItem extends NotificationDeliveryStats {
-  date: string;
-}
 
 /**
  * Declaring constants
@@ -29,7 +25,7 @@ export const Route = createFileRoute('/')({
   loader: () => getStats().then(result => result.data),
 });
 
-const trendColumns: ColumnsType<TrendItem> = [
+const trendColumns: ColumnsType<NotificationStatsWithDate> = [
   {
     title: 'Date',
     dataIndex: 'date',
@@ -68,7 +64,7 @@ const trendColumns: ColumnsType<TrendItem> = [
     align: 'center',
     render: (_, record) => {
       const progress = DashboardUtils.getSuccessProgress(record.total, record.succeeded);
-      return <Progress percent={progress.rate} size="small" status={progress.status} strokeColor={progress.strokeColor} />;
+      return <Progress percent={progress.rate} size="small" status={progress.status} strokeColor={progress.strokeColor} aria-label={`Success Rate: ${progress.rate}%`} />;
     },
   },
 ];
@@ -106,7 +102,13 @@ function Dashboard() {
         <div className="mt-4 pt-4 border-t border-[var(--color-border)]">
           <div className="flex items-center gap-4">
             <span className="text-[var(--color-text-secondary)]">Overall Success Rate:</span>
-            <Progress percent={overallProgress.rate} status={overallProgress.status} strokeColor={overallProgress.strokeColor} className="flex-1 max-w-md" />
+            <Progress
+              percent={overallProgress.rate}
+              status={overallProgress.status}
+              strokeColor={overallProgress.strokeColor}
+              className="flex-1 max-w-md"
+              aria-label={`Overall Success Rate: ${overallProgress.rate}%`}
+            />
           </div>
         </div>
       </Card>

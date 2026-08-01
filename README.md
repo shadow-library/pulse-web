@@ -1,3 +1,6 @@
+> **Archived — migrated to the [platform monorepo](https://github.com/shadow-library/platform).**
+> This code now lives at [`apps/pulse-web`](https://github.com/shadow-library/platform/tree/main/apps/pulse-web) with its full history; this repository is read-only.
+
 Welcome to your new TanStack app! 
 
 # Getting Started
